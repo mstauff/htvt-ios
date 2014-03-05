@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LCDConfig.h"
-#import "LCDHtvtDataManagerDelegate.h"
 
-@interface LCDViewController : UIViewController <NSURLConnectionDelegate, LCDHtvtDataManagerDelegate>
+@interface LCDViewController : UIViewController <NSURLConnectionDelegate>
 
-//@property (strong, nonatomic) NSMutableData *apiReturnJSONData;
 @property (strong, nonatomic) LCDConfig *config;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 

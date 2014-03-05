@@ -9,13 +9,11 @@
 #import "LCDViewController.h"
 #import "LCDConfig.h"
 #import "LCDHtvtDataManager.h"
-#import "LCDHtvtCommunicator.h"
 
-#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
+//#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/confi"
 
 @interface LCDViewController ()
 {
-//    NSURLConnection *currentConnection;
     LCDConfig *_config;
     LCDHtvtDataManager *_manager;
 }
@@ -29,13 +27,7 @@
     [super viewDidLoad];
     
     _manager = [[LCDHtvtDataManager alloc] init];
-    _manager.communicator = [[LCDHtvtCommunicator alloc] init];
-    _manager.communicator.delegate = _manager;
-    _manager.delegate = self;
-    
     [self loadConfig];
-//    NSLog(@"Data Loaded");
-	
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,10 +36,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void (^)(void))networkError: (NSError*) error {
+    return ^ {
+        //run the UI update on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.label.text = @"Error Loading Config";
+            NSLog( @"Error loading config: %@", error.description );
+        });
+};
+}
+
 - (void)loadConfig
 {
-    [_manager fetchConfig];
-    
+    [_manager fetchConfig:^(LCDConfig* config) {
+        [self didReceiveConfig:config];
+    } :^(NSError *error) {
+        [self fetchingConfigFailedWithError:error];
+    } ];
 }
 
 - (void)didReceiveConfig:(LCDConfig *)config {

@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCDHtvtDataManagerDelegate.h"
 #import "LCDHtvtCommunicatorDelegate.h"
+#import "LCDConfig.h"
+
+typedef void (^loadConfigBlock_t)(LCDConfig* payload);
+typedef void (^errorBlock_t)(NSError* error);
 
 @class LCDHtvtCommunicator;
 
 @interface LCDHtvtDataManager : NSObject<LCDHtvtCommunicatorDelegate>
 @property (strong, nonatomic)LCDHtvtCommunicator *communicator;
-@property (weak, nonatomic)id<LCDHtvtDataManagerDelegate> delegate;
 
-- (void)fetchConfig;
+- (void)fetchConfig:(loadConfigBlock_t)configLoadedBlock : (errorBlock_t)errorBlock;
 
 @end

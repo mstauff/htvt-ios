@@ -73,7 +73,6 @@
 		E88F158B18BE637F00E100CD /* LCDConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDConfig.m; sourceTree = "<group>"; };
 		E88F158D18BE65E300E100CD /* LCDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDConstants.h; sourceTree = "<group>"; };
 		E88F158E18BE65E300E100CD /* LCDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDConstants.m; sourceTree = "<group>"; };
-		E88F159018BE6E7D00E100CD /* LCDHtvtDataManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LCDHtvtDataManagerDelegate.h; sourceTree = "<group>"; };
 		E88F159118BE80BA00E100CD /* LCDHtvtDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDHtvtDataManager.h; sourceTree = "<group>"; };
 		E88F159218BE80BA00E100CD /* LCDHtvtDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDHtvtDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +154,6 @@
 				E88F158B18BE637F00E100CD /* LCDConfig.m */,
 				E88F158D18BE65E300E100CD /* LCDConstants.h */,
 				E88F158E18BE65E300E100CD /* LCDConstants.m */,
-				E88F159018BE6E7D00E100CD /* LCDHtvtDataManagerDelegate.h */,
 				E88F159118BE80BA00E100CD /* LCDHtvtDataManager.h */,
 				E88F159218BE80BA00E100CD /* LCDHtvtDataManager.m */,
 			);
@@ -507,6 +505,7 @@
 				E88F157918BD395A00E100CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E88F157A18BD395A00E100CD /* Build configuration list for PBXNativeTarget "HTVTTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +514,7 @@
 				E88F157C18BD395A00E100CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

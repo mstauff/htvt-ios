@@ -9,7 +9,7 @@
 #import "LCDHtvtCommunicator.h"
 #import "LCDHtvtCommunicatorDelegate.h"
 
-#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
+#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/confi"
 
 @implementation LCDHtvtCommunicator {
     NSString *memberListUrl;
@@ -22,10 +22,17 @@
     NSLog(@"Connecting to %@", htvtConfigUrl);
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:configUrl] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        
         if (error) {
             [self.delegate fetchingConfigFailedWithError:error];
-        } else {
+        } else if( httpResponse.statusCode == 200 ) {
             [self.delegate receivedConfigJSON:data];
+        } else {
+            NSMutableDictionary* errorDetail = [NSMutableDictionary dictionary];
+            [errorDetail setValue:@"Http Error" forKey:NSLocalizedDescriptionKey];
+            [errorDetail setValue:[NSString stringWithFormat:@"%d", httpResponse.statusCode] forKey:NSLocalizedFailureReasonErrorKey];
+            [self.delegate fetchingConfigFailedWithError:[NSError errorWithDomain:@"ldscd.htvt" code:httpResponse.statusCode userInfo:errorDetail]];
         }
     }];
     

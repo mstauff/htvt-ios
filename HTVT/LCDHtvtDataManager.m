@@ -11,10 +11,25 @@
 #import "LCDHtvtCommunicator.h"
 #import "LCDConfig.h"
 
-@implementation LCDHtvtDataManager
+@implementation LCDHtvtDataManager {
+    loadConfigBlock_t _configLoadedBlock;
+    errorBlock_t _errorBlock;
+    
+}
 
-- (void)fetchConfig {
+- (id)init {
+    self = [super init];
+    self.communicator = [[LCDHtvtCommunicator alloc] init];
+    self.communicator.delegate = self;
+   
+    return self;
+}
+
+- (void)fetchConfig : (loadConfigBlock_t) loadConfigBlock : (errorBlock_t) errorBlock {
     [self.communicator getConfig];
+    _configLoadedBlock = loadConfigBlock;
+    _errorBlock = errorBlock;
+    
 }
 
 #pragma mark - LCDHtvtCommunicatorDelegate
@@ -24,17 +39,17 @@
     LCDConfig *config = [LCDHtvtDataBuilder configFromJSON:objectNotation error:&error];
     
     if (error != nil) {
-        [self.delegate fetchingConfigFailedWithError:error];
+        _errorBlock( error );
         
     } else {
-        [self.delegate didReceiveConfig:config];
+        _configLoadedBlock( config );
     }
     
 }
 
 - (void)fetchingConfigFailedWithError:(NSError *)error
 {
-    [self.delegate fetchingConfigFailedWithError:error];
+    _errorBlock( error );
 }
 
 @end
