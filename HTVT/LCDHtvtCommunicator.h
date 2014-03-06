@@ -7,12 +7,11 @@
 //
 
 //#import <Foundation/Foundation.h>
-@protocol LCDHtvtCommunicatorDelegate;
+typedef void (^dataRequestCompletionHandler_t)(NSData* payload, NSError* error);
 
 @interface LCDHtvtCommunicator : NSObject
-@property (weak, nonatomic) id<LCDHtvtCommunicatorDelegate> delegate;
 
--(void)getConfig;
+-(void)getConfig:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 //-(void)getMembersForUnit:(long) unitNum;
 
 @end

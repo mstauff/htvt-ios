@@ -64,7 +64,6 @@
 		E88F157E18BD421D00E100CD /* LCDMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDMember.m; sourceTree = "<group>"; };
 		E88F158018BD44C300E100CD /* LCDFamily.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDFamily.h; sourceTree = "<group>"; };
 		E88F158118BD44C300E100CD /* LCDFamily.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDFamily.m; sourceTree = "<group>"; };
-		E88F158318BD4EBA00E100CD /* LCDHtvtCommunicatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LCDHtvtCommunicatorDelegate.h; sourceTree = "<group>"; };
 		E88F158418BD4FE500E100CD /* LCDHtvtCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDHtvtCommunicator.h; sourceTree = "<group>"; };
 		E88F158518BD4FE500E100CD /* LCDHtvtCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDHtvtCommunicator.m; sourceTree = "<group>"; };
 		E88F158718BE3CA400E100CD /* LCDHtvtDataBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDHtvtDataBuilder.h; sourceTree = "<group>"; };
@@ -145,7 +144,6 @@
 				E88F157E18BD421D00E100CD /* LCDMember.m */,
 				E88F158018BD44C300E100CD /* LCDFamily.h */,
 				E88F158118BD44C300E100CD /* LCDFamily.m */,
-				E88F158318BD4EBA00E100CD /* LCDHtvtCommunicatorDelegate.h */,
 				E88F158418BD4FE500E100CD /* LCDHtvtCommunicator.h */,
 				E88F158518BD4FE500E100CD /* LCDHtvtCommunicator.m */,
 				E88F158718BE3CA400E100CD /* LCDHtvtDataBuilder.h */,

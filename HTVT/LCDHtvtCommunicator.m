@@ -7,9 +7,8 @@
 //
 
 #import "LCDHtvtCommunicator.h"
-#import "LCDHtvtCommunicatorDelegate.h"
 
-#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/confi"
+#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
 
 @implementation LCDHtvtCommunicator {
     NSString *memberListUrl;
@@ -17,24 +16,27 @@
 }
 
 
--(void)getConfig {
-    NSURL *configUrl = [ [NSURL alloc] initWithString:htvtConfigUrl];
+- (void)httpRequest:(NSURL *)configUrl
+  completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
     NSLog(@"Connecting to %@", htvtConfigUrl);
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:configUrl] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         
-        if (error) {
-            [self.delegate fetchingConfigFailedWithError:error];
-        } else if( httpResponse.statusCode == 200 ) {
-            [self.delegate receivedConfigJSON:data];
-        } else {
+        if( httpResponse.statusCode != 200 ) {
             NSMutableDictionary* errorDetail = [NSMutableDictionary dictionary];
             [errorDetail setValue:@"Http Error" forKey:NSLocalizedDescriptionKey];
             [errorDetail setValue:[NSString stringWithFormat:@"%d", httpResponse.statusCode] forKey:NSLocalizedFailureReasonErrorKey];
-            [self.delegate fetchingConfigFailedWithError:[NSError errorWithDomain:@"ldscd.htvt" code:httpResponse.statusCode userInfo:errorDetail]];
+            error = [NSError errorWithDomain:@"ldscd.htvt" code:httpResponse.statusCode userInfo:errorDetail];
         }
+        
+        dataRequestCompleteBlock( data, error );
     }];
+}
+
+-(void)getConfig:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    NSURL *configUrl = [ [NSURL alloc] initWithString:htvtConfigUrl];
+    [self httpRequest:configUrl completionHandler:dataRequestCompleteBlock];
     
 }
 

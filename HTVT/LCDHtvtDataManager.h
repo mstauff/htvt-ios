@@ -6,18 +6,16 @@
 //  Copyright (c) 2014 LDS Community Developers. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "LCDHtvtCommunicatorDelegate.h"
+@import Foundation;
+#import "LCDHtvtCommunicator.h"
 #import "LCDConfig.h"
 
-typedef void (^loadConfigBlock_t)(LCDConfig* payload);
-typedef void (^errorBlock_t)(NSError* error);
+typedef void (^fetchConfigCompletionHandler_t)(LCDConfig* config, NSError* error);
 
-@class LCDHtvtCommunicator;
 
-@interface LCDHtvtDataManager : NSObject<LCDHtvtCommunicatorDelegate>
+@interface LCDHtvtDataManager : NSObject
 @property (strong, nonatomic)LCDHtvtCommunicator *communicator;
 
-- (void)fetchConfig:(loadConfigBlock_t)configLoadedBlock : (errorBlock_t)errorBlock;
+- (void)fetchConfig:(fetchConfigCompletionHandler_t)configLoadedBlock;
 
 @end

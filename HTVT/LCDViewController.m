@@ -10,8 +10,6 @@
 #import "LCDConfig.h"
 #import "LCDHtvtDataManager.h"
 
-//#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/confi"
-
 @interface LCDViewController ()
 {
     LCDConfig *_config;
@@ -48,10 +46,12 @@
 
 - (void)loadConfig
 {
-    [_manager fetchConfig:^(LCDConfig* config) {
-        [self didReceiveConfig:config];
-    } :^(NSError *error) {
-        [self fetchingConfigFailedWithError:error];
+    [_manager fetchConfig:^(LCDConfig* config, NSError* error) {
+        if( error ) {
+            [self fetchingConfigFailedWithError:error];
+        } else {
+            [self didReceiveConfig:config];
+        }
     } ];
 }
 
