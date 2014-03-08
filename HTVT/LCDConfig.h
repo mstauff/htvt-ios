@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Matt Stauffer. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface LCDConfig : NSObject
     @property (strong, nonatomic) NSDictionary *urls;

@@ -14,7 +14,7 @@
 @property NSString *formattedCoupleName;
 @property NSString *phone;
 @property NSString *email;
-@property LCDMember *hoh;
+@property LCDMember *headOfHouse;
 @property LCDMember *spouse;
 @property NSArray *children;
 @property NSString *streetAddress;

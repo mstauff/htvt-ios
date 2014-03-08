@@ -61,6 +61,18 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.label.text = [ NSString stringWithFormat:@"Loaded %lu Properties", (unsigned long)config.urls.allKeys.count];
         NSLog( @"Assigned label: %@", self.label.text );
+        [self loadMemberList];
+        
+    });
+    NSLog( @"Exiting didReceiveConfig" );
+}
+
+- (void)didReceiveMemberList:(NSArray* )memberList {
+    //run the UI update on the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.label.text = [ NSString stringWithFormat:@"Loaded %lu Members", (unsigned long)memberList.count];
+        NSLog( @"Assigned label: %@", self.label.text );
+        
         
     });
     NSLog( @"Exiting didReceiveConfig" );
@@ -68,6 +80,18 @@
 
 - (void)fetchingConfigFailedWithError:(NSError *)error {
     NSLog(@"Error %@; %@", error, [error localizedDescription]);
+    [self networkError:error];
+}
+
+- (void)loadMemberList
+{
+    [_manager fetchMemberList:111 withCompletionHandler:^(NSArray* memberList, NSError* error) {
+        if( error ) {
+            [self networkError:error];
+        } else {
+            [self didReceiveMemberList:memberList];
+        }
+    }];
 }
 //- (void)loadConfig
 //{

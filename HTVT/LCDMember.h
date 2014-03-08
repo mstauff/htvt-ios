@@ -15,10 +15,14 @@ typedef NS_ENUM( NSInteger, Gender ) {
     FEMALE
 };
 
+@property (nonatomic) long individualId;
 @property (strong, nonatomic) NSString *formattedName;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *phone;
-@property Gender *gender;
+@property (nonatomic)Gender gender;
+
++ (Gender)genderFromString:(NSString*)genderString;
++ (NSString*)stringFromGender:(Gender)gender;
 
 
 @end

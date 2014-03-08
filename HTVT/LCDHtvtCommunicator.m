@@ -8,17 +8,15 @@
 
 #import "LCDHtvtCommunicator.h"
 
-#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
 
 @implementation LCDHtvtCommunicator {
-    NSString *memberListUrl;
     
 }
 
 
 - (void)httpRequest:(NSURL *)configUrl
   completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
-    NSLog(@"Connecting to %@", htvtConfigUrl);
+    NSLog(@"Connecting to %@", configUrl);
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:configUrl] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
@@ -34,25 +32,16 @@
     }];
 }
 
--(void)getConfig:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
-    NSURL *configUrl = [ [NSURL alloc] initWithString:htvtConfigUrl];
+-(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    NSURL *configUrl = [ [NSURL alloc] initWithString:url];
     [self httpRequest:configUrl completionHandler:dataRequestCompleteBlock];
     
 }
 
 
-//- (void)getMembersForUnit:(long)unitNum {
-//    NSURL *url = [[NSURL alloc] initWithString:memberListUrl];
-//    NSLog(@"%@", url.path);
-//    
-//    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-//        
-//        if (error) {
-//            [self.delegate fetchingMembersFailedWithError:error];
-//        } else {
-//            [self.delegate receivedMembersJSON:data];
-//        }
-//    }];
-//}
+- (void)getMembersForUnit:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    NSURL *memberListUrl = [[NSURL alloc] initWithString:url];
+    [self httpRequest:memberListUrl completionHandler:dataRequestCompleteBlock];
+}
 
 @end

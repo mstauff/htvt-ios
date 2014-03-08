@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LCDConfig.h"
+#import "LCDMember.h"
 
 @interface LCDHtvtDataBuilder : NSObject
 

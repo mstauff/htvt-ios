@@ -11,7 +11,7 @@ typedef void (^dataRequestCompletionHandler_t)(NSData* payload, NSError* error);
 
 @interface LCDHtvtCommunicator : NSObject
 
--(void)getConfig:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
-//-(void)getMembersForUnit:(long) unitNum;
+-(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
+-(void)getMembersForUnit:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 
 @end

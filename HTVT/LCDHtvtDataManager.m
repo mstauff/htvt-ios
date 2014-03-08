@@ -11,7 +11,11 @@
 #import "LCDHtvtCommunicator.h"
 #import "LCDConfig.h"
 
+#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
+//#define htvtConfigUrl @"http://localhost:8080/config"
+
 @implementation LCDHtvtDataManager {
+    LCDConfig* _config;
     
 }
 
@@ -23,7 +27,7 @@
 }
 
 - (void)fetchConfig : (fetchConfigCompletionHandler_t) configLoadedBlock {
-    [self.communicator getConfig:^(NSData* data, NSError* error){
+    [self.communicator getConfig:htvtConfigUrl completionHandler:^(NSData* data, NSError* error){
         NSError *jsonError = nil;
         LCDConfig *config = nil;
         if( !error ) {
@@ -31,8 +35,27 @@
             error = jsonError;
             
         }
+        _config = config;
         configLoadedBlock( config, error );
         
+    }];
+    
+}
+
+- (void)fetchMemberList:(long) unitNumber withCompletionHandler:(fetchMemberListCompletionHandler_t) memberListLoadedBlock {
+    
+    NSString* memberListUrl = [NSString stringWithFormat:[_config.urls objectForKey:CONFIG_URL_MEMBER_LIST], [NSNumber numberWithLong:unitNumber]];
+    [self.communicator getMembersForUnit: memberListUrl completionHandler:^(NSData* data, NSError* error){
+            NSError *jsonError = nil;
+            NSArray* memberList = nil;
+    
+        if( !error ) {
+            memberList = [LCDHtvtDataBuilder familiesFromJSON:data error:&jsonError];
+            error = jsonError;
+            
+        }
+        memberListLoadedBlock( memberList, error );
+    
     }];
     
 }
