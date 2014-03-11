@@ -19,7 +19,7 @@
     
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     self.communicator = [[LCDHtvtCommunicator alloc] init];
    

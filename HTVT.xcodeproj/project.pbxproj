@@ -100,6 +100,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E82936DA18CF681C00A059A8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E88F157D18BD421D00E100CD /* LCDMember.h */,
+				E88F157E18BD421D00E100CD /* LCDMember.m */,
+				E88F158018BD44C300E100CD /* LCDFamily.h */,
+				E88F158118BD44C300E100CD /* LCDFamily.m */,
+				E88F158A18BE637F00E100CD /* LCDConfig.h */,
+				E88F158B18BE637F00E100CD /* LCDConfig.m */,
+			);
+			name = Model;
+			path = /Users/matts/proj/ios/HTVT/HTVT/model;
+			sourceTree = "<absolute>";
+		};
 		E88F153C18BD395A00E100CD = {
 			isa = PBXGroup;
 			children = (
@@ -140,16 +154,11 @@
 				E88F155E18BD395A00E100CD /* LCDViewController.m */,
 				E88F156018BD395A00E100CD /* Images.xcassets */,
 				E88F154F18BD395A00E100CD /* Supporting Files */,
-				E88F157D18BD421D00E100CD /* LCDMember.h */,
-				E88F157E18BD421D00E100CD /* LCDMember.m */,
-				E88F158018BD44C300E100CD /* LCDFamily.h */,
-				E88F158118BD44C300E100CD /* LCDFamily.m */,
+				E82936DA18CF681C00A059A8 /* Model */,
 				E88F158418BD4FE500E100CD /* LCDHtvtCommunicator.h */,
 				E88F158518BD4FE500E100CD /* LCDHtvtCommunicator.m */,
 				E88F158718BE3CA400E100CD /* LCDHtvtDataBuilder.h */,
 				E88F158818BE3CA400E100CD /* LCDHtvtDataBuilder.m */,
-				E88F158A18BE637F00E100CD /* LCDConfig.h */,
-				E88F158B18BE637F00E100CD /* LCDConfig.m */,
 				E88F158D18BE65E300E100CD /* LCDConstants.h */,
 				E88F158E18BE65E300E100CD /* LCDConstants.m */,
 				E88F159118BE80BA00E100CD /* LCDHtvtDataManager.h */,
