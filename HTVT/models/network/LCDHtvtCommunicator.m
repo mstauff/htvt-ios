@@ -24,7 +24,7 @@
         if( httpResponse.statusCode != 200 ) {
             NSMutableDictionary* errorDetail = [NSMutableDictionary dictionary];
             [errorDetail setValue:@"Http Error" forKey:NSLocalizedDescriptionKey];
-            [errorDetail setValue:[NSString stringWithFormat:@"%d", httpResponse.statusCode] forKey:NSLocalizedFailureReasonErrorKey];
+            [errorDetail setValue:[NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode] forKey:NSLocalizedFailureReasonErrorKey];
             error = [NSError errorWithDomain:@"ldscd.htvt" code:httpResponse.statusCode userInfo:errorDetail];
         }
         

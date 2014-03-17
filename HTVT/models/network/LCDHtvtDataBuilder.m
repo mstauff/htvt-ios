@@ -22,7 +22,7 @@
     }
     
     NSMutableArray *families = [[NSMutableArray alloc] init];
-    NSLog(@"Returned %d families", memberListFromJSON.count);
+    NSLog(@"Returned %lu families", (unsigned long)memberListFromJSON.count);
     
     for( NSDictionary *familyDictionary in memberListFromJSON ) {
         LCDFamily *family = [ [LCDFamily alloc] init];
@@ -51,7 +51,7 @@
                 
                 family.children = children;
             } else if( [family respondsToSelector:NSSelectorFromString(key)]
-                      && ![[familyDictionary valueForKey:key] isKindOfClass:[NSNull class]]) {
+                      && [self isDictionaryValueNotNull:familyDictionary forKey:key]) {
                 // If there is a null in the JSON it comes back as NSNull obj rather
                 // than nil, so try to avoid propagating it into the object
                 [family setValue:[familyDictionary valueForKey:key] forKey:key];
@@ -69,11 +69,13 @@
     
     for( NSString *key in memberDictionary) {
         if( [key isEqualToString:@"gender"] ) {
-            member.gender = [LCDMember genderFromString:[memberDictionary objectForKey:key] ];
-        } else if( [member respondsToSelector:NSSelectorFromString(key)]) {
+            member.gender = [LCDMember genderFromString:[memberDictionary valueForKey:key] ];
+        } else if( [self isDictionaryValueNotNull:memberDictionary forKey:key]
+                  && [member respondsToSelector:NSSelectorFromString(key)]
+                  ) {
             
             //todo - need to deal with address
-            [member setValue:[memberDictionary objectForKey:key] forKey:key];
+            [member setValue:memberDictionary[key] forKey:key];
         }
         
     }
@@ -89,17 +91,19 @@
         return nil;
     }
     LCDConfig *config = [[LCDConfig alloc] init];
-    //    config.urls = [parsedObject valueForKey:@"urls"];
-    //    config.params = [parsedObject valueForKey:@"params"];
     for( NSString *key in parsedObject) {
         if( [config respondsToSelector:NSSelectorFromString(key)]) {
-            [config setValue:[parsedObject valueForKey:key] forKey:key];
+            [config setValue:parsedObject[key] forKey:key];
         }
         
     }
     
     
     return config;
+}
+
++ (BOOL)isDictionaryValueNotNull:(NSDictionary *)dictionary forKey:(NSString *)key {
+    return ![[dictionary valueForKey:key] isKindOfClass:[NSNull class]];
 }
 
 @end

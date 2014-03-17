@@ -7,11 +7,22 @@
 //
 
 #import "LCDAppDelegate.h"
+#import "LCDHTVTDataManager.h"
+#import "LCDIndividualsTableViewController.h"
+
+@interface LCDAppDelegate()
+@property (strong, nonatomic) LCDHtvtDataManager *dataManager;
+
+@end
 
 @implementation LCDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    UINavigationController *navController = (UINavigationController*)self.window.rootViewController;
+    LCDIndividualsTableViewController *individualsController = (LCDIndividualsTableViewController*)navController.topViewController;
+    self.dataManager = [[LCDHtvtDataManager alloc] init];
+    individualsController.dataManager = self.dataManager;
     // Override point for customization after application launch.
     return YES;
 }

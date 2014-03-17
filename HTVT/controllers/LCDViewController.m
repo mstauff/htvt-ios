@@ -11,10 +11,7 @@
 #import "LCDHtvtDataManager.h"
 
 @interface LCDViewController ()
-{
-    LCDConfig *_config;
-    LCDHtvtDataManager *_manager;
-}
+    @property (nonatomic, strong) LCDHtvtDataManager *manager;
 
 @end
 
