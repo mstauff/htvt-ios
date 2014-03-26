@@ -32,16 +32,23 @@
     }];
 }
 
--(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+-(void)makeHttpRequest:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompletedBlock {
     NSURL *configUrl = [ [NSURL alloc] initWithString:url];
-    [self httpRequest:configUrl completionHandler:dataRequestCompleteBlock];
-    
+    [self httpRequest:configUrl completionHandler:dataRequestCompletedBlock];
+}
+
+-(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    [self makeHttpRequest:url completionHandler:dataRequestCompleteBlock];
 }
 
 
 - (void)getMembersForUnit:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
-    NSURL *memberListUrl = [[NSURL alloc] initWithString:url];
-    [self httpRequest:memberListUrl completionHandler:dataRequestCompleteBlock];
+    [self makeHttpRequest:url completionHandler:dataRequestCompleteBlock];
 }
+
+- (void)getDistrictsForAuxiliary:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    [self makeHttpRequest:url completionHandler:dataRequestCompleteBlock];
+}
+
 
 @end

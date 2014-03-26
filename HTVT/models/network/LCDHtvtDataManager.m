@@ -17,6 +17,8 @@
 @interface LCDHtvtDataManager()
 @property (nonatomic, strong) LCDConfig *config;
 @property (nonatomic, strong) NSArray *memberList;
+@property (nonatomic, strong) NSArray *districtList;
+@property (nonatomic, strong) LCDHtvtDataBuilder *dataBuilder;
 
 
 @end
@@ -26,6 +28,7 @@
 - (instancetype)init {
     self = [super init];
     self.communicator = [[LCDHtvtCommunicator alloc] init];
+    self.dataBuilder = [[LCDHtvtDataBuilder alloc] init];
     
     return self;
 }
@@ -38,7 +41,7 @@
             NSError *jsonError = nil;
             LCDConfig *config = nil;
             if( !error ) {
-                config = [LCDHtvtDataBuilder configFromJSON:data error:&jsonError];
+                config = [self.dataBuilder configFromJSON:data error:&jsonError];
                 error = jsonError;
                 
             }
@@ -62,16 +65,36 @@
             NSArray *memberList = nil;
             
             if( !error ) {
-                memberList = [LCDHtvtDataBuilder familiesFromJSON:data error:&jsonError];
+                memberList = [self.dataBuilder familiesFromJSON:data error:&jsonError];
                 error = jsonError;
                 
             }
             self.memberList = memberList;
-            memberListLoadedBlock( memberList, error );
+            memberListLoadedBlock( memberList, error );            
+        }];
+    }
+}
+
+- (void)fetchDistrictList:(long) auxiliaryId withCompletionHandler:(fetchDistrictListCompletionHandler_t) districtListLoadedBlock {
+    
+    if( self.districtList ) {
+        districtListLoadedBlock( self.districtList, nil );
+    } else {
+        NSString *districtListUrl = [NSString stringWithFormat:[_config.urls objectForKey:CONFIG_URL_HTVT_DISTRICTS], @111, [NSNumber numberWithLong:auxiliaryId]];
+        [self.communicator getDistrictsForAuxiliary:districtListUrl completionHandler:^(NSData *data, NSError *error){
+            NSError *jsonError = nil;
+            NSArray *districtList = nil;
+            
+            if( !error ) {
+                districtList = [self.dataBuilder districtsFromJSON:data error:&jsonError];
+                error = jsonError;
+                
+            }
+            self.districtList = districtList;
+            districtListLoadedBlock( districtList, error );
             
         }];
     }
-    
 }
 
 @end

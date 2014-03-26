@@ -1,35 +1,37 @@
 //
-//  LCDIndividualsTableViewController.m
+//  LCDDistrictsTableViewController.m
 //  HTVT
 //
-//  Created by Matt Stauffer on 3/12/14.
+//  Created by Matt Stauffer on 3/20/14.
 //  Copyright (c) 2014 LDS Community Developers. All rights reserved.
 //
 
-#import "LCDIndividualsTableViewController.h"
-#import "LCDIndividualViewController.h"
-#import "LCDFamily.h"
+#import "LCDDistrictsTableViewController.h"
+#import "LCDDistrict.h"
+#import "LCDAssignDistrictTableViewController.h"
 
-@interface LCDIndividualsTableViewController ()
+@interface LCDDistrictsTableViewController ()
 
 @end
 
-@implementation LCDIndividualsTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation LCDDistrictsTableViewController
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     [self loadConfig];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,7 +44,7 @@
     return ^ {
         //run the UI update on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-//            self.label.text = @"Error Loading Config";
+            //            self.label.text = @"Error Loading Config";
             NSLog( @"Error loading config: %@", error.description );
         });
     };
@@ -60,16 +62,16 @@
 }
 
 - (void)didReceiveConfig:(LCDConfig *)config {
-        [self loadMemberList];
+    [self loadDistrictList];
     NSLog( @"Exiting didReceiveConfig" );
 }
 
-- (void)didReceiveMemberList:(NSArray* )memberList {
+- (void)didReceiveDistrictList:(NSArray* )districtList {
     //run the UI update on the main thread
     dispatch_async(dispatch_get_main_queue(), ^{
-//        self.label.text = [ NSString stringWithFormat:@"Loaded %lu Members", (unsigned long)memberList.count];
-//        NSLog( @"Assigned label: %@", self.label.text );
-        self.members = memberList;
+        //        self.label.text = [ NSString stringWithFormat:@"Loaded %lu Members", (unsigned long)memberList.count];
+        //        NSLog( @"Assigned label: %@", self.label.text );
+        self.districts = districtList;
         [self.tableView reloadData];
         
     });
@@ -81,13 +83,13 @@
     [self networkError:error];
 }
 
-- (void)loadMemberList
+- (void)loadDistrictList
 {
-    [self.dataManager fetchMemberList:111 withCompletionHandler:^(NSArray* memberList, NSError* error) {
+    [self.dataManager fetchDistrictList:111 withCompletionHandler:^(NSArray* districtList, NSError* error) {
         if( error ) {
             [self networkError:error];
         } else {
-            [self didReceiveMemberList:memberList];
+            [self didReceiveDistrictList:districtList];
         }
     }];
 }
@@ -103,25 +105,20 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.members.count;
+    return self.districts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"IndividualTableViewCell";
+    static NSString *cellIdentifier = @"DistrictsTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     if( !cell ) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    cell.textLabel.text = [(LCDFamily*)[self.members objectAtIndex:indexPath.row] formattedCoupleName];
+    cell.textLabel.text = [(LCDDistrict*)[self.districts objectAtIndex:indexPath.row] name];
     
     return cell;
 }
-//
-//- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"Tapped %@", [(LCDFamily*)[self.members objectAtIndex:indexPath.row] formattedCoupleName] );
-//    
-//}
 
 /*
 // Override to support conditional editing of the table view.
@@ -166,20 +163,20 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if( [[segue identifier] isEqualToString:@"ShowIndividualDetails"]) {
-        if( [segue.destinationViewController isKindOfClass:[LCDIndividualViewController class]] ) {
-            LCDIndividualViewController *individualViewController = [segue destinationViewController];
-            NSIndexPath *selectedMemberIndexPath = [self.tableView indexPathForSelectedRow];
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if( [[segue identifier] isEqualToString:@"AssignDistrictDetailSegue"]) {
+        if( [segue.destinationViewController isKindOfClass:[LCDAssignDistrictTableViewController class]] ) {
+            LCDAssignDistrictTableViewController *districtAssignViewController = [segue destinationViewController];
+            NSIndexPath *selectedDistrictIndexPath = [self.tableView indexPathForSelectedRow];
             
-            long row = [selectedMemberIndexPath row];
+            long row = [selectedDistrictIndexPath row];
             
-            individualViewController.family = self.members[row];
+            districtAssignViewController.district = self.districts[row];
             
         }
         
     }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
 @end

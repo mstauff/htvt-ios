@@ -12,6 +12,12 @@
 
 @interface LCDHtvtDataBuilder : NSObject
 
-+ (NSArray *)familiesFromJSON:(NSData *)objectNotation error:(NSError **)error;
-+ (LCDConfig *)configFromJSON:(NSData *)objectNotation error:(NSError **)error;
+- (NSArray *)familiesFromJSON:(NSData *)objectNotation error:(NSError **)error;
+- (LCDConfig *)configFromJSON:(NSData *)objectNotation error:(NSError **)error;
+- (NSArray *)districtsFromJSON:(NSData *)districtsJSON error:(NSError **)error;
+- (NSArray *)arrayObjectsFromJSONArray:(NSArray *)jsonArray forClass:(NSString *)objectClassName;
+- (id)objectFromJSONDictionary:(NSDictionary *)jsonDictionary forClass:(NSString *)objectClassName;
+
 @end
+
+

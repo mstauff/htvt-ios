@@ -13,18 +13,20 @@
 
 @implementation LCDIndividualViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (void)setFamily:(LCDFamily *)family {
+    _family = family;
+    if( self.view.window ) {
+        [self updateUI];
     }
-    return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
+    [self updateUI];
+}
+
+- (void)updateUI {
     self.member = self.family.headOfHouse;
     self.nameLabel.text = self.member.formattedName;
     self.phoneLabel.text = self.member.phone;

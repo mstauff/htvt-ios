@@ -13,5 +13,6 @@ typedef void (^dataRequestCompletionHandler_t)(NSData* payload, NSError* error);
 
 -(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 -(void)getMembersForUnit:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
+-(void)getDistrictsForAuxiliary:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 
 @end
