@@ -17,6 +17,8 @@
 
 @implementation LCDAssignDistrictTableViewController
 
+NSString *const NO_NAME_PLACEHOLDER = @"---";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -62,7 +64,8 @@
     // Return the number of rows in the section.
     LCDCompanionship *companionship = self.district.companionships[section];
     
-    return companionship.assignments.count;
+    // we want at least one row, if there are no actual assignments
+    return companionship.assignments.count > 0 ? companionship.assignments.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,8 +76,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     LCDCompanionship *comp = self.district.companionships[indexPath.section];
-   LCDMember *member = [(LCDCompanionshipMember *)comp.assignments[indexPath.row] member];
-    cell.textLabel.text = member.formattedName;
+    if( comp.assignments.count > 0 ) {
+        LCDMember *member = [(LCDCompanionshipMember *)comp.assignments[indexPath.row] member];
+        cell.textLabel.text = member.formattedName;
+    } else {
+        cell.textLabel.text = NO_NAME_PLACEHOLDER;
+    }
     
     return cell;
 }
@@ -89,6 +96,8 @@
             [teacherNames appendFormat:@"%@%@", teacher.member.formattedName, teacherDelimiter];
         }
         [teacherNames deleteCharactersInRange:NSMakeRange(teacherNames.length - teacherDelimiter.length, teacherDelimiter.length)];
+    } else {
+        [teacherNames appendString:NO_NAME_PLACEHOLDER];
     }
     return teacherNames;
 }
