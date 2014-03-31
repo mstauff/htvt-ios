@@ -9,12 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "LCDCompanionshipMember.h"
 
-@interface LCDAssignment : NSObject <LCDCompanionshipMember>
+@interface LCDAssignment : LCDCompanionshipMember
 
-@property (nonatomic) long id;
-@property (nonatomic) long individualId;
-@property (nonatomic, strong) NSString *customName;
-@property (nonatomic, strong) NSString *customContact;
 @property (nonatomic, strong) NSArray *visits;
 
 @end

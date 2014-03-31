@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "LCDDistrict.h"
+#import "LCDMemberService.h"
 
 @interface LCDAssignDistrictTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBar;
 
 @property (weak, nonatomic) LCDDistrict *district;
+@property (weak, nonatomic) LCDMemberService *memberService;
 @end

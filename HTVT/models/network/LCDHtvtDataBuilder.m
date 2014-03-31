@@ -71,7 +71,6 @@
         object = [[objectMetaClass alloc] init ];
         for( NSString *key in jsonDictionary) {
             if( self.collectionObjectMapping[key] != nil ) {
-                // todo - neeed to recursively call collectionFromDict
                 NSArray *jsonArray = jsonDictionary[key];
                 NSString *arrayObjectClassName = self.collectionObjectMapping[key];
                 [object setValue:[self arrayObjectsFromJSONArray:jsonArray forClass:arrayObjectClassName] forKey:key];
@@ -109,11 +108,13 @@
         for( NSString *key in familyDictionary) {
             if( [key isEqualToString:@"headOfHouse"] ) {
                 LCDMember *hoh = [self memberFromDictionary: [familyDictionary objectForKey:key]];
+                hoh.family = family;
                 family.headOfHouse = hoh;
             } else if( [key isEqualToString:@"spouse"] ) {
                 NSDictionary *memberDictionary = [familyDictionary objectForKey:key];
                 if (memberDictionary && ![memberDictionary isKindOfClass:[NSNull class]]) {
                     LCDMember *spouse = [self memberFromDictionary: memberDictionary];
+                    spouse.family = family;
                     family.spouse = spouse;
                     
                 }
@@ -124,6 +125,7 @@
                     children = [[NSMutableArray alloc] init];
                     for( NSDictionary *childDictionary in childJSONArray) {
                         LCDMember *child = [self memberFromDictionary:childDictionary];
+                        child.family = family;
                         [children addObject:child];
                     }
                 }

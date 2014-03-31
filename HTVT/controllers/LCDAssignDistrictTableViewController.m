@@ -62,7 +62,7 @@
     // Return the number of rows in the section.
     LCDCompanionship *companionship = self.district.companionships[section];
     
-    return companionship.assignments.count + companionship.teachers.count;
+    return companionship.assignments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,20 +72,23 @@
     if( !cell ) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-//    cell.textLabel.text = [(LCDCompanionshipMember*)[self.district.companionships objectAtIndex:indexPath.row] customName];
-    cell.textLabel.text = @"Row ";
+    LCDCompanionship *comp = self.district.companionships[indexPath.section];
+   LCDMember *member = [(LCDCompanionshipMember *)comp.assignments[indexPath.row] member];
+    cell.textLabel.text = member.formattedName;
     
     return cell;
 }
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    NSString *teacherDelimiter = @" / ";
     LCDCompanionship *comp = self.district.companionships[section];
     NSMutableString *teacherNames = [[NSMutableString alloc] init];
     if( comp.teachers.count ) {
         for( LCDTeacher *teacher in comp.teachers ) {
-            [teacherNames appendString: @"Teacher"];
+            [teacherNames appendFormat:@"%@%@", teacher.member.formattedName, teacherDelimiter];
         }
+        [teacherNames deleteCharactersInRange:NSMakeRange(teacherNames.length - teacherDelimiter.length, teacherDelimiter.length)];
     }
     return teacherNames;
 }

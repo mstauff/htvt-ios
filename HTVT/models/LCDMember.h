@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+//#import "LCDFamily.h"
+
+@class LCDFamily;
 
 @interface LCDMember : NSObject
 
@@ -20,6 +23,7 @@ typedef NS_ENUM( NSInteger, Gender ) {
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *phone;
 @property (nonatomic)Gender gender;
+@property (weak, nonatomic) LCDFamily *family;
 
 + (Gender)genderFromString:(NSString*)genderString;
 + (NSString*)stringFromGender:(Gender)gender;

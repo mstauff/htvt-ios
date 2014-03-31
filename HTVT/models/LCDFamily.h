@@ -22,4 +22,6 @@
 @property NSString *state;
 @property NSString *postal;
 
+- (NSNumber *)getFamilyId;
+
 @end

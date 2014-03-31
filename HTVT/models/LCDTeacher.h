@@ -9,11 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LCDCompanionshipMember.h"
 
-@interface LCDTeacher : NSObject <LCDCompanionshipMember>
+@interface LCDTeacher : LCDCompanionshipMember
 
-@property (nonatomic) long id;
-@property (nonatomic) long individualId;
-@property (nonatomic, strong) NSString *customName;
-@property (nonatomic, strong) NSString *customContact;
 
 @end

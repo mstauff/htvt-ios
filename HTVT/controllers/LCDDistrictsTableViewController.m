@@ -9,8 +9,10 @@
 #import "LCDDistrictsTableViewController.h"
 #import "LCDDistrict.h"
 #import "LCDAssignDistrictTableViewController.h"
+#import "LCDMemberService.h"
 
 @interface LCDDistrictsTableViewController ()
+@property LCDMemberService *memberService;
 
 @end
 
@@ -40,6 +42,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)hydrateDistricts {
+    self.memberService = [[LCDMemberService alloc] initWithFamilyList:self.members];
+    [self.memberService hydrateDistricts:self.districts];
+}
+
 -(void (^)(void))networkError: (NSError*) error {
     return ^ {
         //run the UI update on the main thread
@@ -66,16 +73,24 @@
     NSLog( @"Exiting didReceiveConfig" );
 }
 
-- (void)didReceiveDistrictList:(NSArray* )districtList {
+- (void)didReceiveMemberList:(NSArray* )memberList {
     //run the UI update on the main thread
     dispatch_async(dispatch_get_main_queue(), ^{
         //        self.label.text = [ NSString stringWithFormat:@"Loaded %lu Members", (unsigned long)memberList.count];
         //        NSLog( @"Assigned label: %@", self.label.text );
-        self.districts = districtList;
+        self.members = memberList;
+        [self hydrateDistricts];
+        
         [self.tableView reloadData];
         
     });
-    NSLog( @"Exiting didReceiveConfig" );
+    NSLog( @"Exiting didReceiveMemberList" );
+}
+
+- (void)didReceiveDistrictList:(NSArray* )districtList {
+        self.districts = districtList;
+    [self loadMemberList];
+    NSLog( @"Exiting didReceiveDistrictList" );
 }
 
 - (void)fetchingConfigFailedWithError:(NSError *)error {
@@ -94,6 +109,16 @@
     }];
 }
 
+- (void)loadMemberList
+{
+    [self.dataManager fetchMemberList:111 withCompletionHandler:^(NSArray* memberList, NSError* error) {
+        if( error ) {
+            [self networkError:error];
+        } else {
+            [self didReceiveMemberList:memberList];
+        }
+    }];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
