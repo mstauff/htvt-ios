@@ -167,8 +167,8 @@
 				E8E2C75D18E6148300E62C47 /* LCDCompanionshipMember.m */,
 			);
 			name = Models;
-			path = /Users/matts/proj/ios/HTVT/HTVT/models;
-			sourceTree = "<absolute>";
+			path = HTVT/models;
+			sourceTree = SOURCE_ROOT;
 		};
 		E82936E618CF9C1500A059A8 /* network */ = {
 			isa = PBXGroup;
