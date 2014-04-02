@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSArray *visits;
 
+- (NSNumber *)getVisitedForMonth:(int)monthNumber;
+
 @end

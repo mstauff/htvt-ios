@@ -7,8 +7,21 @@
 //
 
 #import "LCDAssignment.h"
+#import "LCDVisit.h"
 
 @implementation LCDAssignment
+
+- (NSNumber *)getVisitedForMonth:(int)monthNumber {
+    NSNumber *visited = nil;
+    for( LCDVisit *visit in self.visits ) {
+        if( visit.month == monthNumber ) {
+            visited = visit.visited;
+            break;
+        }
+    }
+    
+    return visited;
+}
 
 
 @end

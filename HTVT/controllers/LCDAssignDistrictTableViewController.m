@@ -10,14 +10,21 @@
 #import "LCDCompanionship.h"
 #import "LCDCompanionshipMember.h"
 #import "LCDTeacher.h"
+#import "LCDAssignment.h"
+#import "LCDVisitService.h"
+#import "LCDAssignmentTableViewCell.h"
 
 @interface LCDAssignDistrictTableViewController ()
+
+@property (nonatomic) int reportingMonth;
 
 @end
 
 @implementation LCDAssignDistrictTableViewController
 
 NSString *const NO_NAME_PLACEHOLDER = @"---";
+int const VISITED_YES_INDEX = 0;
+int const VISITED_NO_INDEX = 1;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,6 +38,7 @@ NSString *const NO_NAME_PLACEHOLDER = @"---";
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationBar.title = self.district.name;
+    self.reportingMonth = [LCDVisitService getCurrentReportingMonth];
 }
 
 
@@ -71,16 +79,25 @@ NSString *const NO_NAME_PLACEHOLDER = @"---";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"AssignTableViewCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    LCDAssignmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     if( !cell ) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[LCDAssignmentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     LCDCompanionship *comp = self.district.companionships[indexPath.section];
     if( comp.assignments.count > 0 ) {
-        LCDMember *member = [(LCDCompanionshipMember *)comp.assignments[indexPath.row] member];
-        cell.textLabel.text = member.formattedName;
+        LCDAssignment *assignment = comp.assignments[indexPath.row];
+        LCDMember *member = assignment.member;
+        cell.assignmentNameLabel.text = member.formattedName;
+        NSNumber *visited = [assignment getVisitedForMonth: self.reportingMonth];
+        [cell.visitRecordButtons setHidden:NO];
+        if( visited == nil ) {
+            cell.visitRecordButtons.selectedSegmentIndex = UISegmentedControlNoSegment;
+        } else {
+            cell.visitRecordButtons.selectedSegmentIndex = visited.intValue > 0 ? VISITED_YES_INDEX : VISITED_NO_INDEX;
+        }
     } else {
-        cell.textLabel.text = NO_NAME_PLACEHOLDER;
+        cell.assignmentNameLabel.text = NO_NAME_PLACEHOLDER;
+        [cell.visitRecordButtons setHidden:YES];
     }
     
     return cell;

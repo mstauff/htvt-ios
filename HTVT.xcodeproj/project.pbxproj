@@ -41,6 +41,8 @@
 		E88F158F18BE65E300E100CD /* LCDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E88F158E18BE65E300E100CD /* LCDConstants.m */; };
 		E8E2C75B18E342F800E62C47 /* LCDMemberService.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C75A18E342F800E62C47 /* LCDMemberService.m */; };
 		E8E2C75E18E6148300E62C47 /* LCDCompanionshipMember.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C75D18E6148300E62C47 /* LCDCompanionshipMember.m */; };
+		E8E2C7A218EC6CD600E62C47 /* LCDVisitService.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A118EC6CD600E62C47 /* LCDVisitService.m */; };
+		E8E2C7A518EC749400E62C47 /* LCDAssignmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,10 @@
 		E8E2C75A18E342F800E62C47 /* LCDMemberService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDMemberService.m; sourceTree = "<group>"; };
 		E8E2C75C18E6148300E62C47 /* LCDCompanionshipMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDCompanionshipMember.h; sourceTree = "<group>"; };
 		E8E2C75D18E6148300E62C47 /* LCDCompanionshipMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDCompanionshipMember.m; sourceTree = "<group>"; };
+		E8E2C7A018EC6CD600E62C47 /* LCDVisitService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDVisitService.h; sourceTree = "<group>"; };
+		E8E2C7A118EC6CD600E62C47 /* LCDVisitService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDVisitService.m; sourceTree = "<group>"; };
+		E8E2C7A318EC749400E62C47 /* LCDAssignmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDAssignmentTableViewCell.h; sourceTree = "<group>"; };
+		E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDAssignmentTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +171,8 @@
 				E8E2C75A18E342F800E62C47 /* LCDMemberService.m */,
 				E8E2C75C18E6148300E62C47 /* LCDCompanionshipMember.h */,
 				E8E2C75D18E6148300E62C47 /* LCDCompanionshipMember.m */,
+				E8E2C7A018EC6CD600E62C47 /* LCDVisitService.h */,
+				E8E2C7A118EC6CD600E62C47 /* LCDVisitService.m */,
 			);
 			name = Models;
 			path = HTVT/models;
@@ -198,6 +206,8 @@
 				E8500CA918D7983B005720CF /* LCDIndividualViewController.m */,
 				E8500CC718E23D4B005720CF /* LCDAssignDistrictTableViewController.h */,
 				E8500CC818E23D4B005720CF /* LCDAssignDistrictTableViewController.m */,
+				E8E2C7A318EC749400E62C47 /* LCDAssignmentTableViewCell.h */,
+				E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -389,7 +399,9 @@
 				E8500CB018DBA4F1005720CF /* LCDVisit.m in Sources */,
 				E82686F318D1127D00971BC1 /* LCDIndividualsTableViewController.m in Sources */,
 				E8E2C75B18E342F800E62C47 /* LCDMemberService.m in Sources */,
+				E8E2C7A518EC749400E62C47 /* LCDAssignmentTableViewCell.m in Sources */,
 				E82936ED18CF9C1500A059A8 /* LCDHtvtCommunicator.m in Sources */,
+				E8E2C7A218EC6CD600E62C47 /* LCDVisitService.m in Sources */,
 				E8500CB318DBA511005720CF /* LCDTeacher.m in Sources */,
 				E8500CBC18DBA54B005720CF /* LCDDistrict.m in Sources */,
 				E8500CBF18DBA552005720CF /* LCDAuxiliary.m in Sources */,

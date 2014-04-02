@@ -11,7 +11,7 @@
 @interface LCDVisit : NSObject
 
 @property (nonatomic) long id;
-@property (nonatomic) BOOL visited;
+@property (nonatomic, strong) NSNumber *visited;
 @property (nonatomic) int year;
 @property (nonatomic) int month;
 
