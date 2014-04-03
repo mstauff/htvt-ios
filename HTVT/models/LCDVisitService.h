@@ -11,5 +11,6 @@
 @interface LCDVisitService : NSObject
 
 + (int)getCurrentReportingMonth;
++ (int)getReportingMonthForDate:(NSDate *)date;
 
 @end
