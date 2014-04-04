@@ -198,6 +198,7 @@
             long row = [selectedDistrictIndexPath row];
             
             districtAssignViewController.district = self.districts[row];
+            districtAssignViewController.dataManager = self.dataManager;
             
         }
         

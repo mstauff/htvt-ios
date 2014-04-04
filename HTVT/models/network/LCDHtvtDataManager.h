@@ -10,8 +10,10 @@
 #import "LCDHtvtCommunicator.h"
 #import "LCDConfig.h"
 #import "LCDConstants.h"
+#import "LCDVisit.h"
 
 typedef void (^fetchConfigCompletionHandler_t)(LCDConfig* config, NSError* error);
+typedef void (^recordVisitCompletionHandler_t)(LCDVisit* visit, NSError* error);
 typedef void (^fetchMemberListCompletionHandler_t)(NSArray* memberList,
                                                    NSError* error);
 typedef void (^fetchDistrictListCompletionHandler_t)(NSArray* districtList,
@@ -23,5 +25,6 @@ typedef void (^fetchDistrictListCompletionHandler_t)(NSArray* districtList,
 - (void)fetchConfig:(fetchConfigCompletionHandler_t)configLoadedBlock;
 - (void)fetchMemberList: (long)unitNumber withCompletionHandler:(fetchMemberListCompletionHandler_t)memberListLoadedBlock;
 - (void)fetchDistrictList: (long)auxiliaryId withCompletionHandler:(fetchDistrictListCompletionHandler_t)districtListLoadedBlock;
+- (void)recordVisit:(LCDVisit *)visit forUnit:(long)unitNumber withCompletionHandler: (recordVisitCompletionHandler_t)recordVisitCompletedBlock;
 
 @end

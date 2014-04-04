@@ -11,8 +11,8 @@
 #import "LCDHtvtCommunicator.h"
 #import "LCDConfig.h"
 
-#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
-//#define htvtConfigUrl @"http://localhost:8080/config"
+//#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
+#define htvtConfigUrl @"http://localhost:8080/config"
 
 @interface LCDHtvtDataManager()
 @property (nonatomic, strong) LCDConfig *config;
@@ -70,7 +70,7 @@
                 
             }
             self.memberList = memberList;
-            memberListLoadedBlock( memberList, error );            
+            memberListLoadedBlock( memberList, error );
         }];
     }
 }
@@ -97,4 +97,21 @@
     }
 }
 
+- (void)recordVisit:(LCDVisit *)visit forUnit:(long)unitNumber withCompletionHandler:(recordVisitCompletionHandler_t)recordVisitCompletedBlock {
+    NSDictionary *objectDictionary = visit.objectDictionary;
+    NSError *jsonError;
+    NSData *visitJson = [NSJSONSerialization dataWithJSONObject:objectDictionary options:0 error:&jsonError];
+    NSString *recordVisitUrl = [NSString stringWithFormat:[self.config.urls objectForKey:CONFIG_URL_VISIT_RECORD], @111];
+    [self.communicator recordVisit:recordVisitUrl visitAsJson:visitJson completionHandler:^(NSData *data, NSError *error) {
+        LCDVisit *visitResult = nil;
+        if ( !error ) {
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            visitResult = [self.dataBuilder objectFromJSONDictionary:jsonDictionary forClass:@"LCDVisit"];
+            
+        }
+        recordVisitCompletedBlock( visitResult, error );
+    }];
+    
+    
+}
 @end

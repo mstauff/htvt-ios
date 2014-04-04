@@ -43,6 +43,7 @@
 		E8E2C75E18E6148300E62C47 /* LCDCompanionshipMember.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C75D18E6148300E62C47 /* LCDCompanionshipMember.m */; };
 		E8E2C7A218EC6CD600E62C47 /* LCDVisitService.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A118EC6CD600E62C47 /* LCDVisitService.m */; };
 		E8E2C7A518EC749400E62C47 /* LCDAssignmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */; };
+		E8E2C7A818EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A718EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,8 @@
 		E8E2C7A118EC6CD600E62C47 /* LCDVisitService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDVisitService.m; sourceTree = "<group>"; };
 		E8E2C7A318EC749400E62C47 /* LCDAssignmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDAssignmentTableViewCell.h; sourceTree = "<group>"; };
 		E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDAssignmentTableViewCell.m; sourceTree = "<group>"; };
+		E8E2C7A618EDFC4D00E62C47 /* LCDToggleableSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDToggleableSegmentedControl.h; sourceTree = "<group>"; };
+		E8E2C7A718EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDToggleableSegmentedControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +211,8 @@
 				E8500CC818E23D4B005720CF /* LCDAssignDistrictTableViewController.m */,
 				E8E2C7A318EC749400E62C47 /* LCDAssignmentTableViewCell.h */,
 				E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */,
+				E8E2C7A618EDFC4D00E62C47 /* LCDToggleableSegmentedControl.h */,
+				E8E2C7A718EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -411,6 +416,7 @@
 				E88F158F18BE65E300E100CD /* LCDConstants.m in Sources */,
 				E88F157F18BD421D00E100CD /* LCDMember.m in Sources */,
 				E82936EE18CF9C1500A059A8 /* LCDHtvtDataBuilder.m in Sources */,
+				E8E2C7A818EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m in Sources */,
 				E82936F318CF9D0C00A059A8 /* LCDViewController.m in Sources */,
 				E8500CB918DBA52F005720CF /* LCDCompanionship.m in Sources */,
 				E8500CB618DBA522005720CF /* LCDAssignment.m in Sources */,

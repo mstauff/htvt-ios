@@ -31,5 +31,16 @@ int const MID_MONTH_THRESHHOLD = 15;
     
 }
 
++ (LCDVisit *)getVisitForMonth:(int)month fromList:(NSArray *)visitList {
+    LCDVisit *visit = nil;
+    for( LCDVisit *currentVisit in visitList ) {
+        if( currentVisit.month == month ) {
+            visit = currentVisit;
+            break;
+        }
+    }
+    
+    return visit;
+}
 
 @end

@@ -7,6 +7,7 @@
 //
 
 //#import <Foundation/Foundation.h>
+
 typedef void (^dataRequestCompletionHandler_t)(NSData* payload, NSError* error);
 
 @interface LCDHtvtCommunicator : NSObject
@@ -14,5 +15,6 @@ typedef void (^dataRequestCompletionHandler_t)(NSData* payload, NSError* error);
 -(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 -(void)getMembersForUnit:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 -(void)getDistrictsForAuxiliary:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
+-(void)recordVisit:(NSString *)url visitAsJson:(NSData *)visit completionHandler:(dataRequestCompletionHandler_t) dataRequestCompletedBlock;
 
 @end

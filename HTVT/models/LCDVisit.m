@@ -10,4 +10,8 @@
 
 @implementation LCDVisit
 
+- (NSDictionary *)objectDictionary {
+    return [NSDictionary dictionaryWithObjectsAndKeys: self.id, @"id", self.visited, @"visited", [NSNumber numberWithInt:self.year], @"year", [NSNumber numberWithInt:self.month], @"month", nil];
+}
+
 @end

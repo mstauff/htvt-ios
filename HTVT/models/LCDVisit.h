@@ -10,9 +10,11 @@
 
 @interface LCDVisit : NSObject
 
-@property (nonatomic) long id;
+@property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) NSNumber *visited;
 @property (nonatomic) int year;
 @property (nonatomic) int month;
+
+- (NSDictionary *)objectDictionary;
 
 @end

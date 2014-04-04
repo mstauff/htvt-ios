@@ -16,8 +16,18 @@
 
 - (void)httpRequest:(NSURL *)configUrl
   completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    [self httpRequest:configUrl withPostBody:nil completionHandler:dataRequestCompleteBlock];
+}
+
+-(void)httpRequest:(NSURL *)configUrl withPostBody:(NSData *)postBody completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
+    
     NSLog(@"Connecting to %@", configUrl);
-    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:configUrl] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+    NSMutableURLRequest *request =[[NSMutableURLRequest alloc] initWithURL:configUrl];
+    [request setHTTPBody:postBody];
+    if( postBody ) {
+        [request setHTTPMethod:@"POST"];
+    }
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         
@@ -33,8 +43,13 @@
 }
 
 -(void)makeHttpRequest:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompletedBlock {
+    [self makeHttpRequest:url withPostBodyObject:nil completionHandler:dataRequestCompletedBlock];
+}
+
+- (void)makeHttpRequest:(NSString *)url withPostBodyObject:(NSData *)postBodyObject completionHandler:(dataRequestCompletionHandler_t)dataRequestCompletedBlock {
     NSURL *configUrl = [ [NSURL alloc] initWithString:url];
-    [self httpRequest:configUrl completionHandler:dataRequestCompletedBlock];
+    [self httpRequest:configUrl withPostBody:postBodyObject completionHandler:dataRequestCompletedBlock];
+    
 }
 
 -(void)getConfig:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
@@ -48,6 +63,10 @@
 
 - (void)getDistrictsForAuxiliary:(NSString*)url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
     [self makeHttpRequest:url completionHandler:dataRequestCompleteBlock];
+}
+
+- (void)recordVisit:(NSString *)url visitAsJson:(NSData *)visit completionHandler:(dataRequestCompletionHandler_t)dataRequestCompletedBlock {
+    [self makeHttpRequest:url withPostBodyObject:visit completionHandler:dataRequestCompletedBlock];
 }
 
 

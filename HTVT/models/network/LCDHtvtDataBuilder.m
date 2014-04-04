@@ -15,6 +15,7 @@
 #import "LCDAssignment.h"
 #import "LCDTeacher.h"
 #import "LCDVisit.h"
+@import ObjectiveC;
 
 @interface LCDHtvtDataBuilder()
 @property (nonatomic, strong)NSDictionary *collectionObjectMapping;
@@ -84,11 +85,6 @@
     }
     return object;
 }
-
-
-
-
-
 
 - (NSArray *)familiesFromJSON:(NSData *)objectNotation error:(NSError *__autoreleasing *)error {
     NSError *localError = nil;

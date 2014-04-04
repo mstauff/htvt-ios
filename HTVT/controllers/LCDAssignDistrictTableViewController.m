@@ -127,6 +127,31 @@ int const VISITED_NO_INDEX = 1;
     return YES;
 }
 */
+- (IBAction)visitButtonClicked:(UISegmentedControl *)sender {
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    if (indexPath != nil)
+    {
+        // todo - need some basic error checking for AIOB
+        LCDCompanionship *companionship = self.district.companionships[indexPath.section];
+        LCDAssignment *assignment = companionship.assignments[indexPath.row];
+        LCDVisit *visitToUpdate = [LCDVisitService getVisitForMonth:self.reportingMonth fromList:assignment.visits];
+        // need to convert the button value to a visited value
+        // UISegmentedControlNoSegment represents no visit reported (so a value of nil for visited), 0 is the index of "Yes" so that represents a visit and 1 is the index of "No"
+        NSNumber *visited = nil;
+        if( sender.selectedSegmentIndex != UISegmentedControlNoSegment ) {
+            visited = sender.selectedSegmentIndex == 0 ? @1 : @0;
+        }
+        visitToUpdate.visited = visited;
+        [self.dataManager recordVisit:visitToUpdate forUnit:111 withCompletionHandler:^(LCDVisit *visitResult, NSError *error) {
+            // todo
+        }];
+        // todo - debug case where there is no ID
+        NSLog( [NSString stringWithFormat:@"Report visited=%@ for visitId=%@", visited, visitToUpdate.id ]);
+    }
+    NSLog(@"gotVisitClick");
+}
+
 
 /*
 // Override to support editing the table view.
