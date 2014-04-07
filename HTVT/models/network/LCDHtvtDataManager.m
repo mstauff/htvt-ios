@@ -11,9 +11,6 @@
 #import "LCDHtvtCommunicator.h"
 #import "LCDConfig.h"
 
-//#define htvtConfigUrl @"http://htvt-ldscd.rhcloud.com/config"
-#define htvtConfigUrl @"http://localhost:8080/config"
-
 @interface LCDHtvtDataManager()
 @property (nonatomic, strong) LCDConfig *config;
 @property (nonatomic, strong) NSArray *memberList;
@@ -24,6 +21,10 @@
 @end
 
 @implementation LCDHtvtDataManager
+
+//NSString * const HTVT_CONFIG_URL = @"http://htvt-ldscd.rhcloud.com/config";
+NSString * const HTVT_CONFIG_URL = @"http://localhost:8080/config";
+
 
 - (instancetype)init {
     self = [super init];
@@ -37,7 +38,7 @@
     if( self.config ) {
         configLoadedBlock( self.config, nil );
     } else {
-        [self.communicator getConfig:htvtConfigUrl completionHandler:^(NSData *data, NSError *error){
+        [self.communicator getConfig:HTVT_CONFIG_URL completionHandler:^(NSData *data, NSError *error){
             NSError *jsonError = nil;
             LCDConfig *config = nil;
             if( !error ) {
@@ -110,6 +111,15 @@
             
         }
         recordVisitCompletedBlock( visitResult, error );
+    }];
+    
+    
+}
+
+- (void)deleteVisit:(long)visitId forUnit:(long)unitNumber withCompletionHandler:(deleteDataCompletionHandler_t)deletedVisitCompletedBlock {
+    NSString *deleteVisitUrl = [NSString stringWithFormat:[self.config.urls objectForKey:CONFIG_URL_VISIT_DELETE], @111, [[NSNumber numberWithLong:visitId] stringValue]];
+    [self.communicator deleteVisit:deleteVisitUrl visitId:visitId completionHandler:^(NSData *data, NSError *error) {
+        deletedVisitCompletedBlock( error );
     }];
     
     

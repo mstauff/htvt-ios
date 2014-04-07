@@ -16,5 +16,6 @@ typedef void (^dataRequestCompletionHandler_t)(NSData* payload, NSError* error);
 -(void)getMembersForUnit:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 -(void)getDistrictsForAuxiliary:(NSString*) url completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock;
 -(void)recordVisit:(NSString *)url visitAsJson:(NSData *)visit completionHandler:(dataRequestCompletionHandler_t) dataRequestCompletedBlock;
+-(void)deleteVisit:(NSString *)url visitId:(long)visitId completionHandler:(dataRequestCompletionHandler_t) dataRequestCompletedBlock;
 
 @end

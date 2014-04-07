@@ -13,6 +13,9 @@
     
 }
 
+NSString * const HTTP_POST = @"POST";
+NSString * const HTTP_CONTENT_TYPE = @"content-type";
+NSString * const HTTP_CONTENT_TYPE_JSON = @"application/json";
 
 - (void)httpRequest:(NSURL *)configUrl
   completionHandler:(dataRequestCompletionHandler_t)dataRequestCompleteBlock {
@@ -25,7 +28,8 @@
     NSMutableURLRequest *request =[[NSMutableURLRequest alloc] initWithURL:configUrl];
     [request setHTTPBody:postBody];
     if( postBody ) {
-        [request setHTTPMethod:@"POST"];
+        [request setValue:HTTP_CONTENT_TYPE_JSON forHTTPHeaderField:HTTP_CONTENT_TYPE];
+        [request setHTTPMethod:HTTP_POST];
     }
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -67,6 +71,10 @@
 
 - (void)recordVisit:(NSString *)url visitAsJson:(NSData *)visit completionHandler:(dataRequestCompletionHandler_t)dataRequestCompletedBlock {
     [self makeHttpRequest:url withPostBodyObject:visit completionHandler:dataRequestCompletedBlock];
+}
+
+- (void)deleteVisit:(NSString *)url visitId:(long)visitId completionHandler:(dataRequestCompletionHandler_t)dataRequestCompletedBlock {
+    [self makeHttpRequest:url completionHandler:dataRequestCompletedBlock];
 }
 
 

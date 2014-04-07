@@ -120,13 +120,13 @@ int const VISITED_NO_INDEX = 1;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 - (IBAction)visitButtonClicked:(UISegmentedControl *)sender {
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
@@ -140,57 +140,67 @@ int const VISITED_NO_INDEX = 1;
         // UISegmentedControlNoSegment represents no visit reported (so a value of nil for visited), 0 is the index of "Yes" so that represents a visit and 1 is the index of "No"
         NSNumber *visited = nil;
         if( sender.selectedSegmentIndex != UISegmentedControlNoSegment ) {
-            visited = sender.selectedSegmentIndex == 0 ? @1 : @0;
+            visited = sender.selectedSegmentIndex == VISITED_YES_INDEX ? @1 : @0;
         }
         visitToUpdate.visited = visited;
-        [self.dataManager recordVisit:visitToUpdate forUnit:111 withCompletionHandler:^(LCDVisit *visitResult, NSError *error) {
-            // todo
-        }];
-        // todo - debug case where there is no ID
-        NSLog( [NSString stringWithFormat:@"Report visited=%@ for visitId=%@", visited, visitToUpdate.id ]);
+        if( visited != nil ) {
+            // There's a visit to record, either YES or NO
+            [self.dataManager recordVisit:visitToUpdate forUnit:111 withCompletionHandler:^(LCDVisit *visitResult, NSError *error) {
+                // todo - handle return result
+            }];
+        }else {
+            if( visitToUpdate.id ) {
+                // We need to remove an existing visit so it's back in the "unreported" state
+                [self.dataManager deleteVisit:visitToUpdate.id.longValue forUnit:111 withCompletionHandler:^(NSError *error) {
+                    // todo - handle return result
+                }];
+                
+            }
+        }
+                NSLog( [NSString stringWithFormat:@"Report visited=%@ for visitId=%@", visited, visitToUpdate.id ]);
     }
     NSLog(@"gotVisitClick");
 }
 
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -12,12 +12,13 @@
 #import "LCDConstants.h"
 #import "LCDVisit.h"
 
-typedef void (^fetchConfigCompletionHandler_t)(LCDConfig* config, NSError* error);
-typedef void (^recordVisitCompletionHandler_t)(LCDVisit* visit, NSError* error);
-typedef void (^fetchMemberListCompletionHandler_t)(NSArray* memberList,
-                                                   NSError* error);
-typedef void (^fetchDistrictListCompletionHandler_t)(NSArray* districtList,
-                                                   NSError* error);
+typedef void (^fetchConfigCompletionHandler_t)(LCDConfig *config, NSError *error);
+typedef void (^recordVisitCompletionHandler_t)(LCDVisit *visit, NSError *error);
+typedef void (^fetchMemberListCompletionHandler_t)(NSArray *memberList,
+                                                   NSError *error);
+typedef void (^fetchDistrictListCompletionHandler_t)(NSArray *districtList,
+                                                   NSError *error);
+typedef void (^deleteDataCompletionHandler_t)(NSError *error);
 
 @interface LCDHtvtDataManager : NSObject
 @property (strong, nonatomic)LCDHtvtCommunicator *communicator;
@@ -26,5 +27,6 @@ typedef void (^fetchDistrictListCompletionHandler_t)(NSArray* districtList,
 - (void)fetchMemberList: (long)unitNumber withCompletionHandler:(fetchMemberListCompletionHandler_t)memberListLoadedBlock;
 - (void)fetchDistrictList: (long)auxiliaryId withCompletionHandler:(fetchDistrictListCompletionHandler_t)districtListLoadedBlock;
 - (void)recordVisit:(LCDVisit *)visit forUnit:(long)unitNumber withCompletionHandler: (recordVisitCompletionHandler_t)recordVisitCompletedBlock;
+- (void)deleteVisit:(long)visitId forUnit:(long)unitNumber withCompletionHandler: (deleteDataCompletionHandler_t)deleteVisitCompletedBlock;
 
 @end
