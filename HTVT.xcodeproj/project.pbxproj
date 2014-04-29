@@ -43,7 +43,7 @@
 		E8E2C7A218EC6CD600E62C47 /* LCDVisitService.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A118EC6CD600E62C47 /* LCDVisitService.m */; };
 		E8E2C7A518EC749400E62C47 /* LCDAssignmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */; };
 		E8E2C7A818EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E2C7A718EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m */; };
-		FA332D3919101B3500A05487 /* LCDVisitServicesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA332D3819101B3500A05487 /* LCDVisitServicesTest.m */; };
+		FA6BA4E31910350B005144B4 /* LCDVisitServicesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BA4E21910350B005144B4 /* LCDVisitServicesTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,7 +121,7 @@
 		E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDAssignmentTableViewCell.m; sourceTree = "<group>"; };
 		E8E2C7A618EDFC4D00E62C47 /* LCDToggleableSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDToggleableSegmentedControl.h; sourceTree = "<group>"; };
 		E8E2C7A718EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDToggleableSegmentedControl.m; sourceTree = "<group>"; };
-		FA332D3819101B3500A05487 /* LCDVisitServicesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LCDVisitServicesTest.m; path = ../../Desktop/LCDVisitServicesTest.m; sourceTree = "<group>"; };
+		FA6BA4E21910350B005144B4 /* LCDVisitServicesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LCDVisitServicesTest.m; path = ../../../Desktop/LCDVisitServicesTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,7 +285,7 @@
 		E88F156D18BD395A00E100CD /* HTVTTests */ = {
 			isa = PBXGroup;
 			children = (
-				FA332D3819101B3500A05487 /* LCDVisitServicesTest.m */,
+				FA6BA4E21910350B005144B4 /* LCDVisitServicesTest.m */,
 				E88F156E18BD395A00E100CD /* Supporting Files */,
 			);
 			path = HTVTTests;
@@ -431,7 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA332D3919101B3500A05487 /* LCDVisitServicesTest.m in Sources */,
+				FA6BA4E31910350B005144B4 /* LCDVisitServicesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

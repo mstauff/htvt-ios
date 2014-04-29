@@ -79,7 +79,7 @@ int const MID_MONTH_THRESHHOLD = 15;
     NSDate* date=[[NSDate alloc] init];
     
     // get current month based on  current date
-    int currentMonth = [self getCurrentmonth: date];
+    int currentMonth = [self getReportingMonth: date];
 
     // get current month from server
     int result=[LCDVisitService getCurrentReportingMonth];
@@ -90,20 +90,20 @@ int const MID_MONTH_THRESHHOLD = 15;
 -(void)testgetReportingMonthForDate
 {
     NSLog(@"Starting getReportingMonthForDateTest -------------------------");
-    
-    //todo fix this ones with miningfull variables
-    // passing date above month threshold
-    NSDate* newCustomDate=[self setCustomDate:@"04-16-2014"];
-    int newCurrentMonth = [self getCurrentmonth: newCustomDate];
-    int resultCustom=[LCDVisitService getReportingMonthForDate:newCustomDate] ;
-    XCTAssertEqual(resultCustom,newCurrentMonth ,@"did not return correct month");
-    
+    //todo Use NSString formatting to take in account the threshold value when passing a datemkk
     // passing a date below the month threshhold
-    NSDate* newCustomDate=[self setCustomDate:@"04-01-2014"];
-    int newCurrentMonth = [self getCurrentmonth: newCustomDate];
-    int resultCustom=[LCDVisitService getReportingMonthForDate:newCustomDate] ;
-    XCTAssertEqual(resultCustom,newCurrentMonth ,@"did not return correct month");
+    NSDate* dateBelowTheThreshold=[self dateFromString:@"04-01-2014"];
+    int monthBelowThreshold = [self getReportingMonth: dateBelowTheThreshold];
+    int resultBelowtheThreshold=[LCDVisitService getReportingMonthForDate:dateBelowTheThreshold] ;
+    XCTAssertEqual(resultBelowtheThreshold,monthBelowThreshold ,@"did not return correct month");
     
+
+    // passing a date below the month threshhold
+    NSDate* dateAboveTheThreshold=[self dateFromString:@"04-17-2014"];
+    int monthAboveThreshold = [self getReportingMonth: dateAboveTheThreshold];
+    int resultAbovetheThreshold=[LCDVisitService getReportingMonthForDate:dateAboveTheThreshold] ;
+    XCTAssertEqual(resultAbovetheThreshold,monthAboveThreshold ,@"did not return correct month");
+
 }
 
 -(void)testgetVisitForMonth
@@ -116,27 +116,23 @@ int const MID_MONTH_THRESHHOLD = 15;
     LCDVisit *visitDontCare2=[self createVisit:1144 withMonth:4 withYear:2014 withIsVisited:0];
     
     // 1. visit to be found first in the list
-    NSMutableArray *visitListWithVisitFoundFirst = [[NSMutableArray alloc] init];
-    [visitListCase1 addObject:visitToFindInlist];
-    [visitListCase1 addObject:visitDontCare];
-    [visitListCase1 addObject:visitDontCare2];
-    [self validateVisitInList:visitListCase1 withVisittoFind:visitToFindInlist withExceptionMessage:@"did not return one visit for the requested month", withFindInList;true];
+    NSArray *visitListFoundFirstInTheList=@[visitToFindInlist,visitDontCare, visitDontCare2];
+    [self validateVisitInList:visitListFoundFirstInTheList visitToFind:visitToFindInlist exceptionMessage:@"did not return one visit for the requested month" visitExpectedInlist:true];
     
     
     // 2.visit to be found second in the list
-    NSArray *[visitListFoundInTheMiddle]=@[visitDontCare, visitToFindInlist,visitDontCare2];
-    [self validateVisitInList:visitListWithVisitInTheMiddle withVisittoFind:visitToFindInlist withExceptionMessage:@"did not return one visit for the requested month"];
-     
+    NSArray *visitListFoundInTheMiddle=@[visitDontCare, visitToFindInlist,visitDontCare2];
+    [self validateVisitInList:visitListFoundInTheMiddle visitToFind:visitToFindInlist exceptionMessage:@"did not return one visit for the requested month" visitExpectedInlist:true];
+   
   
     // 3.visit NOT to be found in the list at all
-    NSMutableArray *visitListWithNoVisitFound = [[NSMutableArray alloc] init];
-    [visitListCase3 addObject:visitDontCare];
-    [visitListCase3 addObject:visitDontCare2];
-    [self validateVisitInList:<#(NSMutableArray *)#> withVisittoFind:<#(LCDVisit *)#> withExceptionMessage:<#(NSString *)#>:visitListCase3 withVisitobject:visitToFindInlist withMessage:@"did return one visit for the requested month. expected none"];
-
+     NSArray *visitListWithNoVisitFound=@[visitDontCare,visitDontCare2];
+    [self validateVisitInList:visitListWithNoVisitFound visitToFind:visitToFindInlist exceptionMessage:@"Returned something. expected nill" visitExpectedInlist:false];
+   
+    
     // 4.passing an empty list
-    NSMutableArray *visitListEmpty = [[NSMutableArray alloc] init];
-    [self validateVisitInList:<#(NSMutableArray *)#> withVisittoFind:<#(LCDVisit *)#> withExceptionMessage:<#(NSString *)#>:visitListCase4 withVisitobject:visitToFindInlist withMessage:@"did return something. expected nil"];
+     NSArray *visitListEmpty=@[visitDontCare,visitDontCare2];
+    [self validateVisitInList:visitListEmpty visitToFind:visitToFindInlist exceptionMessage:@"Returned something. expected nill" visitExpectedInlist:false];
  
 }
 
