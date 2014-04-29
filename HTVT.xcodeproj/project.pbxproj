@@ -121,7 +121,7 @@
 		E8E2C7A418EC749400E62C47 /* LCDAssignmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDAssignmentTableViewCell.m; sourceTree = "<group>"; };
 		E8E2C7A618EDFC4D00E62C47 /* LCDToggleableSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCDToggleableSegmentedControl.h; sourceTree = "<group>"; };
 		E8E2C7A718EDFC4D00E62C47 /* LCDToggleableSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDToggleableSegmentedControl.m; sourceTree = "<group>"; };
-		FA6BA4E21910350B005144B4 /* LCDVisitServicesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LCDVisitServicesTest.m; path = ../../../Desktop/LCDVisitServicesTest.m; sourceTree = "<group>"; };
+		FA6BA4E21910350B005144B4 /* LCDVisitServicesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCDVisitServicesTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
